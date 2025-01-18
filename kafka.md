@@ -32,9 +32,9 @@ backgroundImage: url('./assets/background-new.jpg')
 ## **Data Integration Evolution**
 * If you have `4 source systems` and `6 target systems`, you need to write `24 integrations`
 * Cherry on Top
-  - Each Integration comes with diffulties around
-    - Protocol - how the data is transported (TCP, HTTP, GRPC, FTP, JDBC)
-    - Data format - how the data is parsed (Binary, CSV, JSON, Avro, Protobuf)
+  * Each Integration comes with diffulties around
+    * Protocol - how the data is transported (TCP, HTTP, GRPC, FTP, JDBC)
+    * Data format - how the data is parsed (Binary, CSV, JSON, Avro, Protobuf)
 
 ---
 
@@ -117,11 +117,62 @@ backgroundImage: url('./assets/background-new.jpg')
 ## **Topics, Partitions and offsets**
 * Data is kept only for a limited time (default is one week - configurable)
 * Offset only have a meaning for a specific partition
-  - E.g. offset 3 in partition 0 doesn't represent the same data as offset 3 in partition 1
-  - Offsets are not re-used even if previous messages have been deleted
+  * E.g. offset 3 in partition 0 doesn't represent the same data as offset 3 in partition 1
+  * Offsets are not re-used even if previous messages have been deleted
 * Order is guaranteed only within a partition (not across partitions)
 * Data is assigned randomly to a partition unless a key is provided (will see this later)
 * You can have as many partitions per topic as you want
 
 ---
 
+## **Producers**
+* Producers write data to topics
+  * Which are made of partitions
+* Producers know to which partition to write to (and which kafka broker has it)
+* In case of Kafka broker failures, Producers will automatically recover
+
+---
+## **Producers: Message Keys**
+* Producers can choose to send a `key` with a message (string, number, binary, etc)
+* If the `key = null`, the data is send to partitions in round robin fashion
+* If `key != null`, then all messages for that key will always go to the same partition (hashing)
+* A key is typically sent, if you need message ordering for a specific field (ex: ride_id)
+---
+## **Producers: Message Keys**
+
+![bg right:70% 100%](./assets/producer-key.svg)
+
+---
+## **Kafka Messages anatomy**
+
+![bg right:70% 100%](./assets/message-anatomy.svg)
+
+
+---
+## **Kafka Messages Serializer**
+
+* Kafka only accepts bytes as an input from producers and sends bytes out as an output to consumers
+* Serializer are specified for the value and the key
+* Common Serializers
+  - String (incl. JSON)
+  - Int, Float
+  - Avro
+  - Protobuf
+
+---
+
+## **Kafka Messages Serializer**
+
+![bg right:70% 70%](./assets/serializer.png)
+
+---
+## **Kafka Message Key Hashing**
+
+- Responsibility of `Kafka Partitioner` to decide the partition for a message
+
+-  If the key is specified for a message, the hashing is done using `murmur2` algorithm
+```java
+
+targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
+
+```
