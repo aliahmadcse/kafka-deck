@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+
+spring:
+  application:
+    name: kafka-demo
+  cassandra:
+    contact-points: localhost     # Cassandra node address
+    port: 9042                    # Cassandra native transport port
+    keyspace-name: easy_taxi   # Keyspace name
+    local-datacenter: datacenter1 # Datacenter name
+    schema-action: none           # Schema management action (e.g., 'create', 'create-if-not-exists', 'none')
+    connection:
+      init-query-timeout: 5000ms  # Initial connection timeout
+    request:
+      timeout: 5000ms             # Timeout for CQL queries\
+

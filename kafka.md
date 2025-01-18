@@ -176,3 +176,5 @@ backgroundImage: url('./assets/background-new.jpg')
 targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 
 ```
+## **Consumers**
+
