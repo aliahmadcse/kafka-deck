@@ -49,7 +49,7 @@ backgroundImage: url('./assets/background-new.jpg')
 
 ---
 
-## **Why Kafka**
+## **Kafka**
 > Kafka is a `distributed`, `fault tolerant`, `horizontly Scalable`, pub-sub event streaming platform designed for handling real-time data feeds, Created by LinkedIn, Open Sourced under Apache License 2.0, Maintained by Confluent, IBM, Cloudera and LinkedIn
 
 ---
@@ -62,6 +62,7 @@ backgroundImage: url('./assets/background-new.jpg')
 * De-coupling of system dependencies
 * Application Logs gathering
 
+---
 ## **Agenda**
 * Kafka Cluster
 * Kafka Broker
@@ -93,4 +94,34 @@ backgroundImage: url('./assets/background-new.jpg')
 ---
 
 ## **Kafka Topics**
+* In a Kafka Cluster, a topic is a particular stream of data
+* You can have as many topics as you want
+* A topic is identified by it's *name*
+* Any kind of message format (JSON, Avro, binary etc)
+* The sequence of messages in a topic is called a data streams
+* There are no querying capabilities on topics, instead you can consume the stream of data
+
+---
+
+## **Topics, Partitions and offsets**
+* Topics are split in partitions (example: 100 partitions)
+* Messages within each partition are ordered
+* Each message within a partition gets an incremental id, called `offset`
+* Kafka topics are immutable (Once data is written to a partition, it cannot be changed)
+
+---
+## **Topics, Partitions and offsets**
+![bg right:70% 100%](./assets/topic-partitions.png)
+
+---
+## **Topics, Partitions and offsets**
+* Data is kept only for a limited time (default is one week - configurable)
+* Offset only have a meaning for a specific partition
+  - E.g. offset 3 in partition 0 doesn't represent the same data as offset 3 in partition 1
+  - Offsets are not re-used even if previous messages have been deleted
+* Order is guaranteed only within a partition (not across partitions)
+* Data is assigned randomly to a partition unless a key is provided (will see this later)
+* You can have as many partitions per topic as you want
+
+---
 
