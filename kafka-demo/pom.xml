@@ -18,7 +18,10 @@
     <license/>
   </licenses>
   <developers>
-    <developer/>
+    <developer>
+      <name>Ali Ahmad</name>
+      <url>https://aliahmad.codes</url>
+    </developer>
   </developers>
   <scm>
     <connection/>
