@@ -366,7 +366,7 @@ targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 ---
 
 ## **Topic Replication Factor**
-* With a replication factor n, you can lose upto (n-1) brokers, and still be Okie Dokie
+* With a replication factor R, you can lose upto (R-1) brokers, and still be Okie Dokie
 * Example: We lose Broker 102
 * Result: Broker 101 and 103 can still serve the data
 
@@ -396,6 +396,10 @@ targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 ## **Kafka Consumer Replica Fetching**
 ![bg right:70% 100%](./assets/01/nearest-read.png)
 
+---
+## **Show Time**
+
+* Mermaid
 ---
 
 ## **Producer Acknowledgements**
