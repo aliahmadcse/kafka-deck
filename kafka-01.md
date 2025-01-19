@@ -322,3 +322,35 @@ targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 ```
 
 ---
+## **Kafka Brokers**
+
+* A kafka cluster is composed of multiple brokers (servers)
+* Each broker is identified by it's ID (integer)
+* Each broker contains certain topic partitions
+* After connecting to a bootstrap server (broker), you will be connected to the entire cluster
+* For production environments, the recommended number of brokers is 3 and the same replication factor for your topic partitions
+
+---
+## **Brokers and topics**
+* Example of Topic-A with 3 partitions and Topic-B with 2 partitions
+![bg right:70% 90%](./assets/01/topic-broker.png)
+
+---
+
+## **Brokers and topics**
+* Data is distributed, and Broker 103 doesn't have any Topic B Data
+
+---
+
+### **Broker Discovery**
+* Every kafka broker is also called a **bootstrap server**
+* You specify just one broker when connecting and the kafka client knows how to connect to the entire cluster
+* Each broker knows about all brokers, topics and partitions (metadata)
+
+---
+### **Broker Discovery**
+
+![bg right:75% 100%](./assets/01/broker-connection.png)
+
+---
+## **Topic Replication Factor**
