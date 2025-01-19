@@ -354,3 +354,51 @@ targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 
 ---
 ## **Topic Replication Factor**
+* Topics should have a replication factor > 1
+* This way if a broker is down, another broker can serve the data
+
+---
+## **Topic Replication Factor**
+* Example: Topic A with 2 partitions and replication factor of 2
+
+![bg right:70% 100%](./assets/01/replication-factor.png)
+
+---
+
+## **Topic Replication Factor**
+* With a replication factor n, you can lose upto (n-1) brokers, and still be Okie Dokie
+* Example: We lose Broker 102
+* Result: Broker 101 and 103 can still serve the data
+
+---
+
+## **Topic Replication Factor**
+![bg right:70% 100%](./assets/01/losing-broker.png)
+
+---
+
+## **Leader for a Partition**
+* At any time, only one broker can be a leader for a given partition
+* Producers can only send data to the broker that is leader of a partition
+
+---
+## **Leader for a Partition**
+![bg right:70% 100%](./assets/01/leader-broker.png)
+
+---
+
+## **Kafka Consumer Replica Fetching**
+* By default, kafka producer can only write to the leader broker for a partition
+* kakfa Consumers by default will read from the leader broker for a partition
+* But Since Kafka 2.4, it is possible to configure consumers to read from the closest replica
+
+---
+## **Kafka Consumer Replica Fetching**
+![bg right:70% 100%](./assets/01/nearest-read.png)
+
+---
+
+## **Producer Acknowledgements**
+
+
+
