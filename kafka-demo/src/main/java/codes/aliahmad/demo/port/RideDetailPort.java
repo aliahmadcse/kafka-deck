@@ -1,4 +1,4 @@
-package codes.aliahmad.demo.service;
+package codes.aliahmad.demo.port;
 
 import codes.aliahmad.demo.entity.RideDetail;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
  * @author Ali Ahmad
  * @since 1.0
  */
-public interface RideDetailService
+public interface RideDetailPort
 {
   List<RideDetail> getRidesByUserId(UUID userId);
 

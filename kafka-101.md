@@ -404,5 +404,17 @@ targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 
 ## **Producer Acknowledgements**
 
+* Producers can choose to receive Acknowledgements of data writes
+* acks=0: Producer won't wait for Acknowledgement
+  * Possible Data loss
+* acks=1: Producer will wait for leader Acknowledgements
+  * Limited Data loss
+* acks=all: Leader + Replicas Acknowledgement
+  * No data loss
 
+---
+
+## **Another Demo**
+
+* Heading to IntelliJ
 

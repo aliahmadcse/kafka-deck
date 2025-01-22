@@ -28,8 +28,6 @@ public class RideDetail
   private String endLocation;
   @Column("ride_status")
   private String rideStatus;
-  @Column("start_time")
-  private Instant startTime;
   @Column("driver_id")
   private UUID driverId;
   @Column("end_time")

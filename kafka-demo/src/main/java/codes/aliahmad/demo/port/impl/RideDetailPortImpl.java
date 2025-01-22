@@ -1,8 +1,8 @@
-package codes.aliahmad.demo.service.impl;
+package codes.aliahmad.demo.port.impl;
 
 import codes.aliahmad.demo.entity.RideDetail;
 import codes.aliahmad.demo.repository.RideDetailsRepository;
-import codes.aliahmad.demo.service.RideDetailService;
+import codes.aliahmad.demo.port.RideDetailPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class RideDetailServiceImpl implements RideDetailService
+public class RideDetailPortImpl implements RideDetailPort
 {
   private final RideDetailsRepository rideDetailsRepository;
 

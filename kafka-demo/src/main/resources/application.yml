@@ -16,3 +16,20 @@ spring:
     request:
       timeout: 5000ms             # Timeout for CQL queries\
 
+  kafka:
+    bootstrap-servers: ${bootstrap_servers:localhost:9092}
+    consumer:
+      group-id: ${group_id:kafka-demo}
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+
+kafka:
+  topic:
+    rides-detail-events: ${topic_name:rides-events}
+
+

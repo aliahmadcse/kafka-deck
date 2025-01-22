@@ -2,11 +2,13 @@ package codes.aliahmad.demo;
 
 import codes.aliahmad.demo.entity.RideDetail;
 import codes.aliahmad.demo.entity.key.RideDetailKey;
-import codes.aliahmad.demo.service.RideDetailService;
+import codes.aliahmad.demo.port.RideDetailPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
+@EnableScheduling
 public class KafkaDemoApplication
 {
 
@@ -23,14 +26,15 @@ public class KafkaDemoApplication
     SpringApplication.run(KafkaDemoApplication.class, args);
   }
 
+
   @Component
   @Slf4j
   public static class RideDetailsCommandLineRunner implements CommandLineRunner
   {
 
-    private final RideDetailService rideDetailsService;
+    private final RideDetailPort rideDetailsService;
 
-    public RideDetailsCommandLineRunner(RideDetailService rideDetailsService)
+    public RideDetailsCommandLineRunner(RideDetailPort rideDetailsService)
     {
       this.rideDetailsService = rideDetailsService;
     }
@@ -51,7 +55,6 @@ public class KafkaDemoApplication
       newRide.setStartLocation("Downtown");
       newRide.setEndLocation("Airport");
       newRide.setRideStatus("Completed");
-      newRide.setStartTime(startTime);
       newRide.setEndTime(startTime.plusSeconds(1800)); // 30 minutes later
       newRide.setFare(BigDecimal.valueOf(25.50));
 
@@ -75,7 +78,6 @@ public class KafkaDemoApplication
       secondRide.setStartLocation("Mall");
       secondRide.setEndLocation("Stadium");
       secondRide.setRideStatus("Cancelled");
-      secondRide.setStartTime(secondStartTime);
       secondRide.setEndTime(secondStartTime.plusSeconds(1200)); // 20 minutes later
       secondRide.setFare(BigDecimal.valueOf(15.00));
 
