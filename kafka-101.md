@@ -60,7 +60,6 @@ backgroundImage: url('./assets/01/background-new.jpg')
 * Used has a huge community support and used by large tech organizations around the world
 * Integration with Spark, Flink, Storm, Hadoop, and other Big Data technologies
 * De-coupling of system dependencies
-* Application Logs gathering
 
 ---
 ## **Agenda**
