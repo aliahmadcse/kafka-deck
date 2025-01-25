@@ -57,7 +57,7 @@ kafka-consumer-groups.sh --bootstrap-server localhost:9092
 * Each partition behaves like a queue where only one consumer processes messages from that partition.
 * Different consumer groups can independently consume the same topic without affecting each other, `unlike a typical queue system`
 * In true essense, a topic partition is nothing but an `append only log file` with the offset maintained
-
+* [Partition](https://github.com/apache/kafka/blob/trunk/core/src/main/scala/kafka/cluster/Partition.scala)
 
 ---
 ## **Increasing or decreasing the number of partitions?**
@@ -82,6 +82,4 @@ kafka-consumer-groups.sh --bootstrap-server localhost:9092
     * Existing consumer won't start consuming from new partition, unless a re-balance occurs (adding or removing a consumer) or we can manually trigger a re-balance
     * Or just re-start the app
     * Re starting the app, reminds me that Idempotency is very crucial on the client side with Kafka, if the consumer dies before committing the offset, we may re-process the message and send the update to the database.
-
----
 
