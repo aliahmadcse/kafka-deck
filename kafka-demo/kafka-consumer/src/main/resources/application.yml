@@ -1,0 +1,33 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: kafka-consumer
+  threads:
+    virtual:
+      enabled: true
+
+  cassandra:
+    contact-points: localhost     # Cassandra node address
+    port: 9042                    # Cassandra native transport port
+    keyspace-name: easy_taxi   # Keyspace name
+    local-datacenter: datacenter1 # Datacenter name
+    schema-action: none           # Schema management action (e.g., 'create', 'create-if-not-exists', 'none')
+    connection:
+      init-query-timeout: 5000ms  # Initial connection timeout
+    request:
+      timeout: 5000ms             # Timeout for CQL queries\
+
+  kafka:
+    bootstrap-servers: ${bootstrap_servers:localhost:9092}
+    consumer:
+      group-id: ${group_id:kafka-demo}
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+kafka:
+  topic:
+    rides-detail-events: ${topic_name:rides-events}
+

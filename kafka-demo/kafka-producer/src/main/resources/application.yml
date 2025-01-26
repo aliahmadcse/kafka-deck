@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: kafka-producer
+  threads:
+    virtual:
+      enabled: true
+
+  kafka:
+    bootstrap-servers: ${bootstrap_servers:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: 1
+
+kafka:
+  topic:
+    rides-detail-events: ${topic_name:rides-events}
+
