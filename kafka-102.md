@@ -83,7 +83,7 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic
 - Consuming messages in consumer-group
 
 ```bash
-kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first-topic
+kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first-topic --property parse.key=true --property key.separator=:
 ```
 
 ```bash
@@ -94,3 +94,45 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic 
 ```bash
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic --group my-second-application --from-beginning
 ```
+---
+## **kafka-consumer-groups.sh**
+
+- Describe a specific consumer group
+```bash
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-first-application
+
+```
+
+---
+
+## **kafka-consumer-groups.sh**
+
+- Resetting offsets
+```shell
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets 
+--to-earliest --execute --topic first_topic
+
+```
+---
+## **kafka-consumer-groups.sh**
+- Resetting offets - Shift forward
+```shell
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets 
+--shift-by 2 --execute --topic first-topic
+```
+---
+
+## **kafka-consumer-groups.sh**
+- Resetting offets - Shift backward
+```shell
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets 
+--shift-by -2 --execute --topic first-topic
+```
+---
+## **kafka-consumer-groups.sh**
+- Resetting offets - dry run
+```shell
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets 
+--shift-by -2 --execute --topic first-topic --dry-run
+```
+---
