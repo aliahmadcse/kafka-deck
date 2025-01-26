@@ -38,7 +38,6 @@ public class RideEventProducer
     try
     {
       String message = objectMapper.writeValueAsString(rideEvent);
-
       SendResult<String, String> result = kafkaTemplate
               .send(rideEventTopic, rideEvent.getRideId().toString(), message)
               .get();

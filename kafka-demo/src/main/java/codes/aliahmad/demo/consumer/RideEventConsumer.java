@@ -4,6 +4,7 @@ package codes.aliahmad.demo.consumer;
 import codes.aliahmad.demo.port.RideEventProcessingPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,14 @@ public class RideEventConsumer
 
 
   @KafkaListener(topics = "${kafka.topic.rides-detail-events}", groupId = "${spring.kafka.consumer.group-id}")
-  public void rideEventListener(String rideEvent)
+  public void rideEventListener(ConsumerRecord<String, String> consumerRecord)
   {
+    String key = consumerRecord.key();
+    String rideEvent = consumerRecord.value();
+    long offset = consumerRecord.offset();
+    int partition = consumerRecord.partition();
+    log.info("Key: {}, Offset: {}, Partition: {}", key, offset, partition);
+
     rideEventProcessingPort.processRideEvent(rideEvent);
   }
 }
