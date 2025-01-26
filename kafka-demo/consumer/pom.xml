@@ -7,10 +7,10 @@
     <artifactId>kafka-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>producer</artifactId>
+  <artifactId>consumer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>producer</name>
-  <description>producer</description>
+  <name>consumer</name>
+  <description>consumer</description>
   <url/>
   <licenses>
     <license/>
@@ -29,9 +29,8 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>com.github.javafaker</groupId>
-      <artifactId>javafaker</artifactId>
-      <version>1.0.2</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-cassandra</artifactId>
     </dependency>
   </dependencies>
 
