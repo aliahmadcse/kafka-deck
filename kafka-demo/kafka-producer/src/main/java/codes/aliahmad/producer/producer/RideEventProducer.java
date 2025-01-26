@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -38,6 +39,7 @@ public class RideEventProducer
     try
     {
       String message = objectMapper.writeValueAsString(rideEvent);
+
       SendResult<String, String> result = kafkaTemplate
               .send(rideEventTopic, rideEvent.getRideId().toString(), message)
               .get();
@@ -47,6 +49,20 @@ public class RideEventProducer
               metadata.topic(),
               metadata.partition(),
               metadata.offset());
+
+
+//      ProducerRecord<String, String> record = new ProducerRecord<>(rideEventTopic, rideEvent.getRideId().toString(), message);
+//      kafkaTemplate.send(record)
+//              .thenAccept(result ->
+//                      log.info("Message sent successfully. Topic: {}, Partition: {}, Offset: {}",
+//                              result.getRecordMetadata().topic(),
+//                              result.getRecordMetadata().partition(),
+//                              result.getRecordMetadata().offset())
+//              )
+//              .exceptionally(e -> {
+//                log.error("Error sending ride event: {}", rideEvent, e);
+//                return null;
+//              });
     }
     catch (JsonProcessingException e)
     {
