@@ -40,11 +40,11 @@ public class RideEventProducer
     {
       String message = objectMapper.writeValueAsString(rideEvent);
 
-      SendResult<String, String> result = kafkaTemplate
+      SendResult<String, String> response = kafkaTemplate
               .send(rideEventTopic, rideEvent.getRideId().toString(), message)
               .get();
 
-      RecordMetadata metadata = result.getRecordMetadata();
+      RecordMetadata metadata = response.getRecordMetadata();
       log.info("Message sent successfully. Topic: {}, Partition: {}, Offset: {}",
               metadata.topic(),
               metadata.partition(),

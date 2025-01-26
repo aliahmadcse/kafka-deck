@@ -417,3 +417,8 @@ targetPartition = Math.abs(Utils.murmur2(keyBytes)) % numberOfPartitions
 
 * Heading to IntelliJ
 
+---
+![bg top:10% 45%](./assets/02/kafka.jpg)
+
+---
+![bg top:10% 45%](./assets/02/kafka-2.png)
