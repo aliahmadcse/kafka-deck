@@ -1,4 +1,4 @@
-package codes.aliahmad.kafkaproducerwikimedia;
+package codes.aliahmad.producer.wikimedia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
