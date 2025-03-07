@@ -8,17 +8,14 @@ import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Component
@@ -40,43 +37,42 @@ public class RideEventProducer
     {
       String message = objectMapper.writeValueAsString(rideEvent);
 
-      SendResult<String, String> response = kafkaTemplate
-              .send(rideEventTopic, rideEvent.getRideId().toString(), message)
-              .get();
+//      SendResult<String, String> response = kafkaTemplate
+//              .send(rideEventTopic, rideEvent.getRideId().toString(), message)
+//              .get();
 
-      RecordMetadata metadata = response.getRecordMetadata();
-      log.info("Message sent successfully. Topic: {}, Partition: {}, Offset: {}",
-              metadata.topic(),
-              metadata.partition(),
-              metadata.offset());
+//      RecordMetadata metadata = response.getRecordMetadata();
+//      log.info("Message sent successfully. Topic: {}, Partition: {}, Offset: {}",
+//              metadata.topic(),
+//              metadata.partition(),
+//              metadata.offset());
 
-
-//      ProducerRecord<String, String> record = new ProducerRecord<>(rideEventTopic, rideEvent.getRideId().toString(), message);
-//      kafkaTemplate.send(record)
-//              .thenAccept(result ->
-//                      log.info("Message sent successfully. Topic: {}, Partition: {}, Offset: {}",
-//                              result.getRecordMetadata().topic(),
-//                              result.getRecordMetadata().partition(),
-//                              result.getRecordMetadata().offset())
-//              )
-//              .exceptionally(e -> {
-//                log.error("Error sending ride event: {}", rideEvent, e);
-//                return null;
-//              });
+      ProducerRecord<String, String> record = new ProducerRecord<>(rideEventTopic, rideEvent.getRideId().toString(), message);
+      kafkaTemplate.send(record)
+              .thenAccept(result ->
+                      log.info("Message sent successfully. Topic: {}, Partition: {}, Offset: {}",
+                              result.getRecordMetadata().topic(),
+                              result.getRecordMetadata().partition(),
+                              result.getRecordMetadata().offset())
+              )
+              .exceptionally(e -> {
+                log.error("Error sending ride event: {}", rideEvent, e);
+                return null;
+              });
     }
     catch (JsonProcessingException e)
     {
       log.error("Error serializing ride event: {}", rideEvent, e);
     }
-    catch (ExecutionException e)
-    {
-      log.error("Error sending ride event: {}", rideEvent, e);
-    }
-    catch (InterruptedException e)
-    {
-      log.error("Error sending ride event: {}", rideEvent, e);
-      Thread.currentThread().interrupt();
-    }
+//    catch (ExecutionException e)
+//    {
+//      log.error("Error sending ride event: {}", rideEvent, e);
+//    }
+//    catch (InterruptedException e)
+//    {
+//      log.error("Error sending ride event: {}", rideEvent, e);
+//      Thread.currentThread().interrupt();
+//    }
   }
 
   private RideEvent createRideEvent()

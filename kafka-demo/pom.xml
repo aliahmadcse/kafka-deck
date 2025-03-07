@@ -10,9 +10,10 @@
   <description>kafka-demo</description>
 
   <modules>
+    <module>commons</module>
     <module>kafka-producer</module>
     <module>kafka-consumer</module>
-    <module>commons</module>
+    <module>kafka-producer-wikimedia</module>
   </modules>
 
   <url/>

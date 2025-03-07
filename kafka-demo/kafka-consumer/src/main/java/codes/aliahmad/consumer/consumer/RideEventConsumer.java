@@ -16,7 +16,6 @@ public class RideEventConsumer
 {
   private final RideEventProcessingPort rideEventProcessingPort;
 
-
   @KafkaListener(topics = "${kafka.topic.rides-detail-events}", groupId = "${spring.kafka.consumer.group-id}")
   public void rideEventListener(ConsumerRecord<String, String> consumerRecord, Acknowledgment acknowledgment)
   {
