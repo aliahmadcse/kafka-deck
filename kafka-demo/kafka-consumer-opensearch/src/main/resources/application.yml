@@ -1,12 +1,13 @@
 spring:
   application:
-    name: kafka-producer-wikimedia
+    name: kafka-consumer-opensearch
+
 
 kafka:
   bootstrap-servers: ${kafka_bootstrap_servers:127.0.0.1:9092}
   topic:
     wikimedia-recent-change: ${wikimedia_recent_change_topic_name:wikimedia-recent-change}
-
-wikimedia:
-  base-uri: https://stream.wikimedia.org
-  change-stream-uri: /v2/stream/recentchange
+  group-id:
+    default: ${group_id:ali-ahmad}
+  auto-offset-reset:
+    default: ${auto_offset_reset:latest}
