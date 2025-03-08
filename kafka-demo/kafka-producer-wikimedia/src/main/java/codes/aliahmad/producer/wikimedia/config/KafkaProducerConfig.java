@@ -26,6 +26,10 @@ public class KafkaProducerConfig
     config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
     config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    //some high throughput values
+    config.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+    config.put(ProducerConfig.LINGER_MS_CONFIG, 20); // 20ms wait till sending the batch
+    config.put(ProducerConfig.BATCH_SIZE_CONFIG, 32 * 1024); // 32 bytes of batch size
 
     // acks=0: Fire-and-forget, no acknowledgment from brokers (fast but unreliable).
     // acks=1: Leader acknowledges after writing to its log (default, good balance).
