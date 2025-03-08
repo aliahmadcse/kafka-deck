@@ -2,7 +2,6 @@ spring:
   application:
     name: kafka-consumer-opensearch
 
-
 kafka:
   bootstrap-servers: ${kafka_bootstrap_servers:127.0.0.1:9092}
   topic:
@@ -11,3 +10,14 @@ kafka:
     default: ${group_id:ali-ahmad}
   auto-offset-reset:
     default: ${auto_offset_reset:latest}
+
+opensearch:
+  host: localhost
+  port: 9200
+  protocol: https
+  username: admin
+  password: S6^8JH&Sb5Q0@dx
+  connection-timeout: 5000
+  socket-timeout: 60000
+  ssl:
+    verification-mode: none

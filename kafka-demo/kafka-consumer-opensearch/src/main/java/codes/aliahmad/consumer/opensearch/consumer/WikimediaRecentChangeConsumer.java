@@ -22,7 +22,7 @@ public class WikimediaRecentChangeConsumer
   {
     try
     {
-      openSearchService.processWikimediaRecentChangeEvent(consumerRecord.value());
+      openSearchService.indexWikimediaRecentChangeEvent(consumerRecord.value());
     }
     catch (Exception exception)
     {

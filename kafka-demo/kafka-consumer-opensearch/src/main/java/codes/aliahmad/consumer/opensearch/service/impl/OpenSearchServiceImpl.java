@@ -9,8 +9,7 @@ public class OpenSearchServiceImpl implements OpenSearchService
 
 
   @Override
-  public void processWikimediaRecentChangeEvent(String event)
+  public void indexWikimediaRecentChangeEvent(String event)
   {
-
   }
 }
