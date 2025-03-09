@@ -1,6 +1,6 @@
 package codes.aliahmad.consumer.opensearch.consumer;
 
-import codes.aliahmad.consumer.opensearch.service.OpenSearchService;
+import codes.aliahmad.consumer.opensearch.service.WikimediaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class WikimediaRecentChangeConsumer
 {
 
-  private final OpenSearchService openSearchService;
+  private final WikimediaService openSearchService;
 
   @KafkaListener(topics = "${kafka.topic.wikimedia-recent-change}", groupId = "${kafka.group-id.default}",
           containerFactory = "defaultListenerFactory")

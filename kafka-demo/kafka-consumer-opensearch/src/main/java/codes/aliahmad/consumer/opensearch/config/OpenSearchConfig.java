@@ -3,6 +3,7 @@ package codes.aliahmad.consumer.opensearch.config;
 
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.TrustAllStrategy;
+import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.opensearch.client.RestHighLevelClient;
 import org.opensearch.client.RestClient;
@@ -17,6 +18,9 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.opensearch.client.RestClientBuilder;
 
 import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 
 @Configuration
@@ -61,49 +65,48 @@ public class OpenSearchConfig
                     .setSocketTimeout(socketTimeout)
     );
 
-    // Configure SSL if using HTTPS
-    if ("https".equals(protocol))
-    {
-      builder.setHttpClientConfigCallback(httpClientBuilder -> {
-        try
-        {
-          SSLContext sslContext;
-          if ("none".equals(sslVerificationMode))
-          {
-            // Development only - trust all certificates
-            sslContext = new SSLContextBuilder()
-                    .loadTrustMaterial(null, TrustAllStrategy.INSTANCE)
-                    .build();
 
-            httpClientBuilder.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE);
-          }
-          else
-          {
-            // Use system default SSL context for production
-            sslContext = SSLContext.getDefault();
-          }
+    builder.setHttpClientConfigCallback(httpClientBuilder -> {
+      try
+      {
+        httpClientBuilder.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE);
+        httpClientBuilder.setSSLContext(sslContext());
 
-          httpClientBuilder.setSSLContext(sslContext);
+        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
+        httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
 
-          // Add basic authentication if credentials are provided
-          if (!username.isEmpty() && !password.isEmpty())
-          {
-            final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-            credentialsProvider.setCredentials(AuthScope.ANY,
-                    new UsernamePasswordCredentials(username, password));
-            httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-          }
+        httpClientBuilder.setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy());
 
-          return httpClientBuilder;
-        }
-        catch (Exception e)
-        {
-          throw new RuntimeException("Failed to configure SSL context", e);
-        }
-      });
-    }
+        return httpClientBuilder;
+      }
+      catch (Exception e)
+      {
+        throw new RuntimeException("Failed to configure SSL context", e);
+      }
+    });
+
 
     return new RestHighLevelClient(builder);
+  }
+
+
+  private SSLContext sslContext() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException
+  {
+    SSLContext sslContext;
+    if ("none".equals(sslVerificationMode))
+    {
+      // Development only - trust all certificates
+      sslContext = new SSLContextBuilder()
+              .loadTrustMaterial(null, TrustAllStrategy.INSTANCE)
+              .build();
+    }
+    else
+    {
+      // Use system default SSL context for production
+      sslContext = SSLContext.getDefault();
+    }
+    return sslContext;
   }
 
 }

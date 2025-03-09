@@ -1,6 +1,6 @@
 package codes.aliahmad.consumer.opensearch;
 
-import codes.aliahmad.consumer.opensearch.service.BookService;
+import codes.aliahmad.consumer.opensearch.service.WikimediaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,12 +22,12 @@ public class KafkaConsumerOpensearchApplication
   @RequiredArgsConstructor
   static class MyCommandLineRunner implements CommandLineRunner
   {
-    private final BookService bookService;
+    private final WikimediaService wikimediaService;
 
     @Override
-    public void run(String... args) throws Exception
+    public void run(String... args)
     {
-      bookService.createDocumentsIndex();
+      wikimediaService.createIndexIfNotExists();
     }
   }
 }

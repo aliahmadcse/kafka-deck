@@ -9,7 +9,7 @@ kafka:
   group-id:
     default: ${group_id:ali-ahmad}
   auto-offset-reset:
-    default: ${auto_offset_reset:latest}
+    default: ${auto_offset_reset:earliest}
 
 opensearch:
   host: localhost
