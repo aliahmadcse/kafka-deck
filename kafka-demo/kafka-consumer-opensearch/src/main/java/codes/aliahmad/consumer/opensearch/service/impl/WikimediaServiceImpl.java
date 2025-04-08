@@ -26,6 +26,14 @@ public class WikimediaServiceImpl implements WikimediaService
   public void indexWikimediaRecentChangeEvent(String event)
   {
     log.info("Indexing wikimedia recent change event: {}", event);
+    try
+    {
+      wikimediaRepository.indexEvent(INDEX_NAME, event);
+    }
+    catch (Exception e)
+    {
+      log.error("Failed to index wikimedia recent change event: {}", event, e);
+    }
   }
 
 
