@@ -2,6 +2,14 @@ spring:
   application:
     name: kafka-consumer-opensearch
 
+  kafka:
+    streams:
+      application-id: my-kafka-streams-app
+      bootstrap-servers: localhost:9092
+      default-key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      default-value-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+
+
 kafka:
   bootstrap-servers: ${kafka_bootstrap_servers:127.0.0.1:9092}
   topic:
@@ -10,6 +18,8 @@ kafka:
     default: ${group_id:ali-ahmad}
   auto-offset-reset:
     default: ${auto_offset_reset:earliest}
+
+
 
 opensearch:
   host: localhost

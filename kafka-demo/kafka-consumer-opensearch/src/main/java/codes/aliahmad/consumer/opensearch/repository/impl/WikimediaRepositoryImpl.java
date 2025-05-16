@@ -21,10 +21,11 @@ public class WikimediaRepositoryImpl implements WikimediaRepository
 
 
   @Override
-  public IndexResponse indexEvent(String indexName, String event) throws IOException
+  public IndexResponse indexEvent(String indexName, String event, String id) throws IOException
   {
     IndexRequest indexRequest = new IndexRequest(indexName)
-            .source(event, XContentType.JSON);
+            .source(event, XContentType.JSON)
+            .id(id);
 
     return client.index(indexRequest, RequestOptions.DEFAULT);
   }

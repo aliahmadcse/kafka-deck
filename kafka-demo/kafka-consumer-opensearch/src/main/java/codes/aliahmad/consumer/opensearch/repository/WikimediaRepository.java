@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface WikimediaRepository
 {
-  IndexResponse indexEvent(String eventName, String event) throws IOException;
+  IndexResponse indexEvent(String eventName, String event, String id) throws IOException;
 }
